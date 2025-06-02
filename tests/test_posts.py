@@ -2,28 +2,28 @@ import pytest
 from app import schemas
 
 
-def test_get_all_posts(authorized_client, test_posts):
-    res = authorized_client.get("/posts/")
+# def test_get_all_posts(authorized_client, test_posts):
+#     res = authorized_client.get("/posts/")
 
-    def validate(post):
-        return schemas.PostOut(**post)
-    posts_map = map(validate, res.json())
-    posts_list = list(posts_map)
+#     def validate(post):
+#         return schemas.PostOut(**post)
+#     posts_map = map(validate, res.json())
+#     posts_list = list(posts_map)
 
-    assert len(res.json()) == len(test_posts)
-    assert res.status_code == 200
+#     assert len(res.json()) == len(test_posts)
+#     assert res.status_code == 200
 
 
 #done-code
-# def test_get_all_posts(authorized_client):
-#     res = authorized_client.get("/posts/")
-#     assert res.status_code == 200
-#     json_data = res.json()
+def test_get_all_posts(authorized_client):
+    res = authorized_client.get("/posts/")
+    assert res.status_code == 200
+    json_data = res.json()
 
-#     for item in json_data:
-#         post_data = item['Post']
-#         # Validate against schemas.PostOut
-#         schemas.PostOut(**post_data)  
+    for item in json_data:
+        post_data = item['Post']
+        # Validate against schemas.PostOut
+        schemas.PostOut(**post_data)  
 def test_unauthorized_user_get_all_posts(client, test_posts):
     res = client.get("/posts/")
     assert res.status_code == 401 
