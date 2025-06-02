@@ -104,12 +104,24 @@ class Post(PostBase):
 #         orm_mode = True  
 
 # schemas.py
+# class PostOut(BaseModel):
+#     id: int
+#     title: str
+#     content: str
+#     created_at: str
+#     owner: Optional[User] = None
+#     votes: int
+
+#     class Config:
+#         orm_mode = True
+
+
 class PostOut(BaseModel):
     id: int
     title: str
     content: str
     created_at: str
-    owner: Optional[User] = None
+    owner: Optional[UserOut] = None
     votes: int
 
     class Config:
