@@ -104,6 +104,17 @@ class Post(PostBase):
 #         orm_mode = True  
 
 
+# class PostOut(BaseModel):
+#     id: int
+#     title: str
+#     content: str
+#     created_at: str
+#     owner: Optional[User] = None
+#     votes: int
+
+#     class Config:
+#         orm_mode = True
+
 class PostOut(BaseModel):
     id: int
     title: str
@@ -114,8 +125,6 @@ class PostOut(BaseModel):
 
     class Config:
         orm_mode = True
-
-
 # class PostOut(BaseModel):
 #     id: int
 #     title: str

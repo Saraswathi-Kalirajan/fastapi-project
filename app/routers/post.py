@@ -41,19 +41,42 @@ def create_posts(
     db.commit()
     db.refresh(new_post)
     return new_post
-
-
 @router.get("/{id}", response_model=schemas.PostOut)
 def get_post(id: int, db: Session = Depends(get_db), current_user: int = Depends(oauth2.get_current_user)):
-    #cursor.execute("""SELECT * from posts WHERE id = %s """, (str(id),))
-    #post = cursor.fetchone()
-    post = db.query(models.Post, func.count(models.Vote.post_id).label("votes")).join(
-        models.Vote, models.Vote.post_id == models.Post.id, isouter=True).group_by(models.Post.id).filter(models.Post.id == id).first()
-    print(post)
-    if not post:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,detail=f"post with id:{id} was not found")
-    print(post)
-    return post
+    post_with_votes = (
+        db.query(models.Post, func.count(models.Vote.post_id).label("votes"))
+        .join(models.Vote, models.Vote.post_id == models.Post.id, isouter=True)
+        .group_by(models.Post.id)
+        .filter(models.Post.id == id)
+        .first()
+    )
+    if not post_with_votes:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Post with id {id} not found")
+
+    post_obj = post_with_votes[0]
+    votes = post_with_votes[1]
+    
+    # Construct a response dict matching your schema
+    return {
+        "id": post_obj.id,
+        "title": post_obj.title,
+        "content": post_obj.content,
+        "created_at": post_obj.created_at.isoformat(),
+        "owner": post_obj.owner,  # will be serialized via UserOut if needed
+        "votes": votes
+    }
+
+# @router.get("/{id}", response_model=schemas.PostOut)
+# def get_post(id: int, db: Session = Depends(get_db), current_user: int = Depends(oauth2.get_current_user)):
+#     #cursor.execute("""SELECT * from posts WHERE id = %s """, (str(id),))
+#     #post = cursor.fetchone()
+#     post = db.query(models.Post, func.count(models.Vote.post_id).label("votes")).join(
+#         models.Vote, models.Vote.post_id == models.Post.id, isouter=True).group_by(models.Post.id).filter(models.Post.id == id).first()
+#     print(post)
+#     if not post:
+#         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,detail=f"post with id:{id} was not found")
+#     print(post)
+#     return post
 
 @router.delete("/{id}", status_code=status.HTTP_204_NO_CONTENT)
 def delete_post(id: int, db: Session = Depends(get_db), current_user: int = Depends(oauth2.get_current_user)):
