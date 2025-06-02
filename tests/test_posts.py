@@ -35,12 +35,13 @@ def test_unauthorized_user_get_one_post(client, test_posts):
 def test_get_one_post_not_exist(authorized_client,test_posts):
     res = authorized_client.get(f"/posts/88888")
     assert res.status_code == 404 
-def test_get_one_post(authorized_client,test_posts):
+def test_get_one_post(authorized_client, test_posts):
     res = authorized_client.get(f"/posts/{test_posts[0].id}")
     post = schemas.PostOut(**res.json())
-    assert post.Post.id == test_posts[0].id 
+    assert post.Post.id == test_posts[0].id
     assert post.Post.content == test_posts[0].content
-    assert post.Post.title == test_posts[0].title  
+    assert post.Post.title == test_posts[0].title
+
 @pytest.mark.parametrize("title, content, published", [
     ("awesome new title", "awesome new content", True),
     ("favorite pizza", "i love pepperoni", False),
