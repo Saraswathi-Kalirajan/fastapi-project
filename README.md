@@ -1,66 +1,53 @@
 
 # Social Media API Backend (FastAPI)
 
-This project provides a backend API for a social media application built with FastAPI. It includes the following main functionalities:
-
-- **Post Management:** Create, update, delete, and retrieve posts.
-- **User Management:** Register new users and search users by ID.
-- **Authentication:** User login and token-based authentication.
-- **Voting System:** Upvote and downvote posts (currently supports upvote only).
+**Technologies & Dependencies Used:**  
+This project leverages modern Python frameworks and tools including FastAPI, Uvicorn, SQLAlchemy, Pydantic, JWT, Passlib,and PostgreSQL. It is containerized using Docker, ensuring easy deployment and scalability. Version control is managed via GitHub, demonstrating good development practices. These skills are highly valuable for backend development roles.
 
 ---
 
-## Getting Started
+## 🚀 Features
 
-Follow these steps to set up the project locally:
+- **🧑 User Management:** Register, login, and manage user profiles.
+- **🔐 JWT Authentication:** Secure access with OAuth2 password flow.
+- **📝 Posts:** Full CRUD (Create, Read, Update, Delete) support with user ownership.
+- **👍 Votes:** Like/dislike functionality with one vote per user per post.
+- **🗃️ Database:** PostgreSQL with SQLAlchemy ORM and Alembic for migrations.
+- **🐳 Dockerized:** Easily run using Docker Compose.
+- **✅ Testing:** Pytest-based tests for major endpoints.
+- **☁️ Docker Hub:** Pull the pre-built API image directly from Docker Hub.
 
-### 1. Clone the Repository
+---
+
+## 🧰 Tech Stack
+
+| Component           | Technology/Package                                         |
+|---------------------|------------------------------------------------------------|
+| Framework           | FastAPI                                                    |
+| Server              | Uvicorn                                                    |
+| Database            | PostgreSQL                                                 |
+| ORM                 | SQLAlchemy                                                 |
+| Migrations          | Alembic                                                    |
+| Authentication      | JWT + OAuth2 (PasswordBearer)                               |
+| Password Hashing    | Passlib (bcrypt)                                           |
+| Testing             | Pytest, TestClient                                         |
+| Containerization    | Docker, Docker Compose                                     |
+| Deployment          | Docker Hub                                                 |
+
+---
+
+## 🖥️ Local Setup
+
+### 1. Clone this repository:
 
 ```bash
 git clone https://github.com/Saraswathi-Kalirajan/fastapi-project
-```
-
-### 2. Navigate into the project directory
-
-```bash
 cd FASTAPI
 ```
 
-### 3. Install Dependencies
+### 2. Set Environment Variables:
 
-```bash
-pip install fastapi[all]
-```
-
-### 4. Run the API Server
-
-```bash
-uvicorn app.main:app --reload
-```
-
-> The `--reload` flag enables auto-reloading so that code changes are reflected immediately. The server runs by default at `http://127.0.0.1:8000`.
-
-### 5. Access API Documentation
-
-Open your browser and navigate to:
-
-[http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
-
-This provides an interactive Swagger UI for testing your endpoints.
-
----
-
-## Database Configuration
-
-This project uses PostgreSQL. Ensure PostgreSQL is installed and running on your machine.
-
-### 6. Create a Database
-
-Create a new PostgreSQL database (name as per your preference).
-
-### 7. Set Environment Variables
-
-Create a `.env` file in the root directory with your database credentials and secret keys:
+Create a `.env` file in the root directory with the following content, replacing placeholders with your actual credentials:
 
 ```env
 DATABASE_HOSTNAME=localhost
@@ -73,12 +60,39 @@ ALGORITHM=HS256
 ACCESS_TOKEN_EXPIRE_MINUTES=60
 ```
 
-> Replace the placeholder values with your actual database credentials and generate a secure `SECRET_KEY`. You can generate a key using [this tool](https://fastapi.tiangolo.com/tutorial/security/).
+*Tip:* Generate a secure `SECRET_KEY` using [FastAPI security tutorial](https://fastapi.tiangolo.com/tutorial/security/).
+
+### 3. Run the API Server:
+
+```bash
+uvicorn app.main:app --reload
+```
+
+### 4. Access the API Documentation:
+
+Open your browser and go to:
+
+[http://localhost:8000/docs](http://localhost:8000/docs)
+
+### 5. Run Tests:
+
+```bash
+pytest -v 
+```
 
 ---
 
-## Additional Resources
+
+
+## 📚 Resources
 
 - [FastAPI Documentation](https://fastapi.tiangolo.com/)
+- [Uvicorn](https://www.uvicorn.org/)
+- [SQLAlchemy](https://www.sqlalchemy.org/)
+- [Alembic](https://alembic.sqlalchemy.org/)
+- [JWT (PyJWT)](https://pyjwt.readthedocs.io/)
+- [Passlib](https://passlib.readthedocs.io/)
+- [Docker](https://www.docker.com/)
+- [Pytest](https://docs.pytest.org/)
 
 ---
