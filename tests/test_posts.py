@@ -13,8 +13,6 @@ from app import schemas
 #     assert len(res.json()) == len(test_posts)
 #     assert res.status_code == 200
 
-
-#done-code
 def test_get_all_posts(authorized_client):
     res = authorized_client.get("/posts/")
     assert res.status_code == 200
@@ -128,6 +126,13 @@ def test_update_post_non_exist(authorized_client, test_user, test_posts):
         f"/posts/800000", json=data)
     assert res.status_code == 404 
    
+
+
+
+
+
+
+
 
 
 # from typing import List
